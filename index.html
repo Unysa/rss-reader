@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome to your feeds :)</h1>
+        <form">
+            <p>Please type in the rss feeds</p>
+            <input type="text" id="input">
+            <button onclick="return view()" value="Submit"> Submit </button>
+        </form>
+        <button onclick="return load()"> Load </button>
+        <button onclick="return parse()"> Parse </button>
+        <button onclick="return reset_data()"> Reset </button>
+        <script src="/node_modules/rss-parser/dist/rss-parser.min.js"></script>
+        <h3>
+            <script src="index.js"></script>
+        </h3>
+        <!-- <button onclick="view()"> View </button> -->
+        <!-- <button onclick="reset_data()"> Reset </button> -->
+    </div>
+</body>
+</html>
