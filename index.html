@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//code.jquery.com/jquery-git1.js"></script>
+    <link rel="stylesheet" href="mystyle.css">
     <title>Document</title>
 </head>
 <body>
     <div>
         <h1>Welcome to your feeds :)</h1>
-        <form">
-            <p>Please type in the rss feeds</p>
-            <input type="text" id="input">
-            <button onclick="return view()" value="Submit"> Submit </button>
-        </form>
-        <button onclick="return load()"> Load </button>
-        <button onclick="return parse()"> Parse </button>
-        <button onclick="return reset_data()"> Reset </button>
+        <label>Name a new category: </label>
+        <input type="text" name="category" id="input2">
+        <button class="button" id="addColor" onclick="addValue()">Add</button><br>
+        <label>Please type in an rss feed:</label>
+        <input type="text" id="input"><br>
+        <label>Choose a category for your feed:</label>
+        <select id="myCategory" name="color"> 
+            <option selected="selected" disabled>Pick a category</option>  
+        </select><br>
+        <button class="button" onclick="return addRss()" value="Submit"> Add an rss feed with selected category</button><br>
+        <!-- <div class="dropdown">
+            <button onclick="showDropdown()" class="dropbtn">Category</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
+        </div><br> -->
+        <button class="button" onclick="return load()"> Load </button>
+        <label>- Load an rss from your local storage (OBSOLETE for now)</label><br>
+        <button class="button" onclick="return parse()"> Parse </button>
+        <label>- View the results from your rss feeds</label><br>
+        <button class="button" onclick="return reset_data()"> Reset </button>
+        <label>- Clear local storage</label><br>
         <script src="/node_modules/rss-parser/dist/rss-parser.min.js"></script>
         <h3>
             <script src="index.js"></script>

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "jquery": "^3.5.1",
     "rss-parser": "^3.9.0"
   },
   "devDependencies": {
