@@ -128,21 +128,22 @@ function addRss(){
 
 function parse(){
   let parser = new RSSParser();
-  //for(let i = 0; i < feeds.length; i++)
-  //{
-    feeds.forEach((element, index, array)=>{ 
-      console.log(element.category);
-      parser.parseURL(CORS_PROXY + feeds[i], function(err, feed) {
-        if (err) throw err;
-        console.log(feed.title);
-        document.write(feed.title.bold() + "<br><br>");
-        feed.items.forEach(function(entry) {
-          console.log(entry.title + ':' + entry.link);
-          document.write(entry.title + "<br>");
-          document.write(entry.link + "<br><br>");
+  
+    feeds.forEach((element)=>{ 
+      console.log(element.rss);
+      if(element.category == document.getElementById("myCategory").value)
+      {
+        parser.parseURL(CORS_PROXY + element.rss, function(err, feed) {
+          if (err) throw err;
+          console.log(feed.title);
+          document.write(feed.title.bold() + "<br><br>");
+          feed.items.forEach(function(entry) {
+            console.log(entry.title + ':' + entry.link);
+            document.write(entry.title + "<br>");
+            document.write(entry.link + "<br><br>");
+          });
         });
-      });
+      }
     });
-  //}
   return false;
 }
