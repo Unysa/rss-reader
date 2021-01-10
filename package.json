@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./commands.js",
   "dependencies": {
+    "commander": "^6.2.1",
+    "inquirer": "^7.3.3",
     "jquery": "^3.5.1",
+    "mongoose": "^5.11.11",
     "rss-parser": "^3.9.0"
   },
   "devDependencies": {
