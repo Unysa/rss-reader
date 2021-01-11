@@ -11,6 +11,7 @@ const db = mongoose.connect('mongodb://localhost:27017/rsscli', {useNewUrlParser
 
 //Import model
 const RSS = require('./RSS');
+const { assert } = require('console');
 
 //Add RSS
 const addRSS = (rss) => {
@@ -40,7 +41,7 @@ const updateRSS = (_id, rss) => {
 }
 
 const removeRSS = (_id) => {
-    RSS.remove({ _id })
+    RSS.deleteOne({ _id })
     .then(rss => {
         console.info('RSS Removed');
         mongoose.connection.close();
@@ -60,30 +61,26 @@ const parseRSS = (rss) => {
     const search = new RegExp(rss, 'i');
     RSS.find({$or: [{rsslink: search}, {category: search}]})
     .then(rss => {
-        
-        var rssObject = rss.toObject();
-        console.log(rssObject.category);
-        console.info(rss);
-        console.info(`${rss.length} matches`);
+        console.log(`${rss.length} matches`);
+        (async () => {
+            for(var i = 0; i<rss.length; i++)
+            {
+                try{
+                    let feed = await parser.parseURL(rss[i].rsslink);
+                    console.log('\n' + feed.title + '\n');
+                  
+                    feed.items.forEach(item => {
+                      console.log(item.title + ': ' + item.link)
+                    });
+
+                } catch (error) {
+                    console.log(`Wrong URL at: ${rss[i]}` + '\n' + "Please update!");
+                }
+            }
+        })();
         mongoose.connection.close();
-    })
+    }).catch(error => {console.log(error)});
 }
-
-/*var prompts = rl.createInterface(process.stdin, process.stdout);
-prompts.question("Type in the RSS you want to parse ", function(RSS){
-
-    (async () => {
-    
-      let feed = await parser.parseURL(RSS);
-      console.log(feed.title);
-    
-      feed.items.forEach(item => {
-        console.log(item.title + ':' + item.link)
-      });
-    
-    })();
-
-});*/
 
 //Export methods
 module.exports = {
