@@ -15,20 +15,26 @@ window.onclick = function(event) {
   }
 }
 
+
 function addValue(){
+  //var arr = JSON.parse(localStorage.getItem('data'));
   var textToAdd  = document.getElementById("input2").value;
-  var x					 = document.getElementById("myCategory");
   var option 		 = document.createElement("option");
-  option.text    = textToAdd;
+  var x					 = document.getElementById("myCategory");
+  
+  option.text = textToAdd;
   x.add(option);
 }
 
 
 function save(){
-  var new_data = [];
-  new_data[0] = document.getElementById('input').value;
+  var new_data = {
+    "rss":"data1",
+    "category":"data2",
+ };
+  new_data.rss = document.getElementById('input').value;
   var e = document.getElementById("myCategory");
-  new_data[1] = e.options[e.selectedIndex].text;
+  new_data.category = e.options[e.selectedIndex].text;
   if(localStorage.getItem('data') == null){
     localStorage.setItem('data', '[]');
   }
@@ -66,20 +72,22 @@ function addRss(){
 }
 
 function parse(){
+  $('p').empty();
   let parser = new RSSParser();
   
     feeds.forEach((element)=>{ 
-      console.log(element.rss);
+      console.log(element.rssLink);
       if(element.category == document.getElementById("myCategory").value)
       {
         parser.parseURL(CORS_PROXY + element.rss, function(err, feed) {
           if (err) throw err;
           console.log(feed.title);
-          document.write(feed.title.bold() + "<br><br>");
+          $('p').append(feed.title.bold() + "<br><br>").html();
           feed.items.forEach(function(entry) {
             console.log(entry.title + ':' + entry.link);
-            document.write(entry.title + "<br>");
-            document.write(entry.link + "<br><br>");
+            $('p').append(entry.title + "<br>").html();
+            $('p').append(entry.link + "<br><br>").html();
+            
           });
         });
       }

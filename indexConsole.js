@@ -70,7 +70,7 @@ const parseRSS = (rss) => {
                     console.log('\n' + feed.title + '\n');
                   
                     feed.items.forEach(item => {
-                      console.log(item.title + ': ' + item.link)
+                      console.log(item.title + '\n' + item.link + '\n')
                     });
 
                 } catch (error) {
